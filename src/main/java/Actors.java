@@ -12,6 +12,9 @@ public class Actors {
     String name;
     double netWorth;
     Boolean isAlive;
+    String birthday;
+    double height;
+    String dateOfDeath = "";
 
     public Actors(String netWorth, boolean isAlive){
         //TODO --> (Write a proper constructor using the get_from_api functions)
@@ -77,14 +80,40 @@ public class Actors {
     public String getDateOfDeathViaApi(String actorsInfoJson){
         //TODO --> (If your chosen actor is deceased it must return the date of death)  -->
 
-        String date = "";
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
         if(!actorJson.getBoolean("is_alive")){
-            date = actorJson.getString("death");
+            this.dateOfDeath = actorJson.getString("death");
         }
 
-        return date;
+        return dateOfDeath;
     }
 
+    public void getBirthdayViaApi(String actorsInfoJson){
+
+        String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
+        JSONObject actorJson = new JSONObject(correctJson);
+        this.birthday = actorJson.getString("birthday");
+
+    }
+
+    public void getHeightViaApi(String actorsInfoJson){
+
+        String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
+        JSONObject actorJson = new JSONObject(correctJson);
+        this.height = actorJson.getDouble("height");
+
+    }
+
+    @Override
+    public String toString() {
+        return "Actors{" +'\n'+
+                " name='" + name + '\'' +'\n'+
+                " netWorth=" + netWorth +'\n'+
+                " isAlive=" + isAlive +'\n'+
+                " birthday='" + birthday + '\'' +'\n'+
+                " height=" + height +'\n'+
+                " dateOfDeath='" + dateOfDeath + '\'' +'\n'+
+                '}';
+    }
 }
