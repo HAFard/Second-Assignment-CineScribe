@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,12 +8,23 @@ import java.net.HttpURLConnection;
 public class Actors {
     public static final String API_KEY = "Mb3cUPpaCMTSulXkM+zk2Q==ycR8tE2Wqeb3xaoP";
     // TODO --> add your api key about Actors here
-    String netWorth;
+
+    String name;
+    double netWorth;
     Boolean isAlive;
 
     public Actors(String netWorth, boolean isAlive){
         //TODO --> (Write a proper constructor using the get_from_api functions)
     }
+
+    //another constructor
+    public Actors(String name){
+        this.name = name;
+        this.netWorth = 0;
+        this.isAlive = true;
+    }
+
+
     @SuppressWarnings({"deprecation"})
     /**
      * Retrieves data for the specified actor.
@@ -46,19 +59,31 @@ public class Actors {
     }
     public double getNetWorthViaApi(String actorsInfoJson){
         //TODO --> (This function must return the "NetWorth")
-        double result = 0.0;
-        return result;
+        String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
+        JSONObject actorJson = new JSONObject(correctJson);
+        this.netWorth = actorJson.getDouble("net_worth");
+        return this.netWorth;
     }
 
     public boolean isAlive(String actorsInfoJson){
         //TODO --> (If your chosen actor is alive it must return true otherwise it must return false)
-        boolean statues = false;
-        return statues;
+
+        String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
+        JSONObject actorJson = new JSONObject(correctJson);
+        this.isAlive = actorJson.getBoolean("is_alive");
+        return this.isAlive;
     }
 
     public String getDateOfDeathViaApi(String actorsInfoJson){
         //TODO --> (If your chosen actor is deceased it must return the date of death)  -->
+
         String date = "";
+        String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
+        JSONObject actorJson = new JSONObject(correctJson);
+        if(!actorJson.getBoolean("is_alive")){
+            date = actorJson.getString("death");
+        }
+
         return date;
     }
 
