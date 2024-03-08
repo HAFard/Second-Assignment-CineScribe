@@ -41,6 +41,19 @@ public class Main {
             }
             else if (choiceNumber == 2) {
 
+                System.out.println("please enter actor's name!");
+                Scanner IN = new Scanner(System.in);
+                String actorName = IN.nextLine();
+                Actors actor1 = new Actors(actorName);
+                String actorJ = actor1.getActorData(actorName);
+
+                actor1.getNetWorthViaApi(actorJ);
+                actor1.getBirthdayViaApi(actorJ);
+                actor1.getHeightViaApi(actorJ);
+                actor1.isAlive(actorJ);
+                actor1.getDateOfDeathViaApi(actorJ);
+
+                System.out.println(actor1.toString());
 
                 break;
             }
