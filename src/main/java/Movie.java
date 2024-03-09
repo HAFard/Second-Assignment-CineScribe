@@ -66,8 +66,10 @@ public class Movie {
 
         JSONObject movieJSON = new JSONObject(moviesInfoJson);
         String votes = movieJSON.getString("imdbVotes");
-        String correctStr = votes.substring(0,votes.indexOf(','))+votes.substring(votes.indexOf(',')+1); //deleting non digit character
-        this.ImdbVotes = Integer.parseInt(correctStr);
+        if (!votes.equals("N/A")) {
+            String correctStr = votes.substring(0, votes.indexOf(',')) + votes.substring(votes.indexOf(',') + 1); //deleting non digit character
+            this.ImdbVotes = Integer.parseInt(correctStr);
+        }
         return ImdbVotes;
     }
 
@@ -78,9 +80,10 @@ public class Movie {
         JSONObject movieJSON = new JSONObject(moviesInfoJson);
         JSONArray ratingArray = new JSONArray(movieJSON.getJSONArray("Ratings"));
         JSONObject ratingJSON = new JSONObject();
-        ratingJSON = ratingArray.getJSONObject(0);
-        System.out.println(ratingJSON);
-        this.rating = ratingJSON.getString("Value");
+        if (!ratingJSON.isEmpty()) {
+            ratingJSON = ratingArray.getJSONObject(0);
+            this.rating = ratingJSON.getString("Value");
+        }
         return rating;
     }
 
