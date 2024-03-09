@@ -52,6 +52,12 @@ public class Movie {
         }
         reader.close();
         //handle an error if the chosen movie is not found
+        String info = stringBuilder.toString();
+        JSONObject movieInfo = new JSONObject(info);
+        if (movieInfo.getString("Response").equals("False") ){
+
+            throw new IOException();
+        }
         return stringBuilder.toString();
     }
     public int getImdbVotesViaApi(String moviesInfoJson){
@@ -71,9 +77,10 @@ public class Movie {
 
         JSONObject movieJSON = new JSONObject(moviesInfoJson);
         JSONArray ratingArray = new JSONArray(movieJSON.getJSONArray("Ratings"));
-        JSONObject ratingJSON = new JSONObject(ratingArray.get(0));
-        String rating = ratingJSON.getString("Value");
-        //String rating = movieJSON.getString("Ratings");
+        JSONObject ratingJSON = new JSONObject();
+        ratingJSON = ratingArray.getJSONObject(0);
+        System.out.println(ratingJSON);
+        this.rating = ratingJSON.getString("Value");
         return rating;
     }
 

@@ -14,10 +14,11 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         int choiceNumber = in.nextInt();
+        System.out.println("please enter movie's title!");
+
 
         while (true) {
             if (choiceNumber == 1) {
-                System.out.println("please enter movie's title!");
                 Scanner In = new Scanner(System.in);
                 String movieTitle = In.nextLine();
                 Movie movie1 = new Movie(movieTitle);
@@ -26,7 +27,6 @@ public class Main {
                     movieJ = movie1.getMovieData(movieTitle);
                 } catch (IOException e) {
                     System.out.println("Movie not found! please enter another movie name!");
-                    //throw new RuntimeException(e);
                     continue;
                 }
                 movie1.getDirectorViaApi(movieJ);
@@ -34,7 +34,7 @@ public class Main {
                 movie1.getLanguageViaApi(movieJ);
                 movie1.getImdbVotesViaApi(movieJ);
                 movie1.getActorListViaApi(movieJ);
-                //movie1.getRatingViaApi(movieJ);
+                movie1.getRatingViaApi(movieJ);
                 System.out.println(movie1.toString());
 
                 break;
