@@ -80,7 +80,7 @@ public class Movie {
         JSONObject movieJSON = new JSONObject(moviesInfoJson);
         JSONArray ratingArray = new JSONArray(movieJSON.getJSONArray("Ratings"));
         JSONObject ratingJSON = new JSONObject();
-        if (!ratingJSON.isEmpty()) {
+        if (!ratingArray.isEmpty()) {
             ratingJSON = ratingArray.getJSONObject(0);
             this.rating = ratingJSON.getString("Value");
         }
