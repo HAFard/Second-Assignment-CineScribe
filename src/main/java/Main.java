@@ -14,8 +14,9 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         int choiceNumber = in.nextInt();
-        System.out.println("please enter movie's title!");
-
+        if (choiceNumber == 1) {
+            System.out.println("please enter movie's title!");
+        }else System.out.println("please enter actor's name!");
 
         while (true) {
             if (choiceNumber == 1) {
@@ -41,11 +42,14 @@ public class Main {
             }
             else if (choiceNumber == 2) {
 
-                System.out.println("please enter actor's name!");
                 Scanner IN = new Scanner(System.in);
                 String actorName = IN.nextLine();
                 Actors actor1 = new Actors(actorName);
                 String actorJ = actor1.getActorData(actorName);
+                if (actorJ.equals("[]")){
+                    System.out.println("Actor's name not found! please enter another actor name!");
+                    continue;
+                }
 
                 actor1.getNetWorthViaApi(actorJ);
                 actor1.getBirthdayViaApi(actorJ);

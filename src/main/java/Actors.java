@@ -25,6 +25,8 @@ public class Actors {
         this.name = name;
         this.netWorth = 0;
         this.isAlive = true;
+        this.birthday = "";
+        this.height = 0;
     }
 
 
@@ -64,7 +66,9 @@ public class Actors {
         //TODO --> (This function must return the "NetWorth")
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
-        this.netWorth = actorJson.getDouble("net_worth");
+        if (actorJson.has("net_worth")) {
+            this.netWorth = actorJson.getDouble("net_worth");
+        }
         return this.netWorth;
     }
 
@@ -73,7 +77,9 @@ public class Actors {
 
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
-        this.isAlive = actorJson.getBoolean("is_alive");
+        if (actorJson.has("is_alive")) {
+            this.isAlive = actorJson.getBoolean("is_alive");
+        }
         return this.isAlive;
     }
 
@@ -82,10 +88,11 @@ public class Actors {
 
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
-        if(!actorJson.getBoolean("is_alive")){
-            this.dateOfDeath = actorJson.getString("death");
+        if (actorJson.has("is_alive")) {
+            if (!actorJson.getBoolean("is_alive")) {
+                this.dateOfDeath = actorJson.getString("death");
+            }
         }
-
         return dateOfDeath;
     }
 
@@ -93,16 +100,18 @@ public class Actors {
 
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
-        this.birthday = actorJson.getString("birthday");
-
+        if (actorJson.has("birthday")) {
+            this.birthday = actorJson.getString("birthday");
+        }
     }
 
     public void getHeightViaApi(String actorsInfoJson){
 
         String correctJson = actorsInfoJson.substring(1,actorsInfoJson.length()-1).trim();
         JSONObject actorJson = new JSONObject(correctJson);
-        this.height = actorJson.getDouble("height");
-
+        if (actorJson.has("height")) {
+            this.height = actorJson.getDouble("height");
+        }
     }
 
     @Override
